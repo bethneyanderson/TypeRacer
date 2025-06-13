@@ -74,6 +74,23 @@ h5 {
   font-family: "Nunito", sans-serif;
   font-size: 1rem;
 }
+.correct-word {
+  color: #1976d2;
+  font-weight: bold;
+}
+.incorrect-word {
+  color: #d32f2f;
+  font-weight: bold;
+}
+.highlighted-text {
+  min-height: 2.5rem;
+  font-size: 1.25rem;
+  background: #fffbe7;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
 
 /* Responsive styles for TypeRacer layout */
 @media (max-width: 991.98px) {
