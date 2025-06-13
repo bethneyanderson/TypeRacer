@@ -1,1 +1,42 @@
 @import url("https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family= Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+/* Responsive styles for TypeRacer layout */
+@media (max-width: 991.98px) {
+  .container[style*="max-width: 1000px"] .row.align-items-start {
+    flex-direction: column;
+  }
+  .container[style*="max-width: 1000px"] .col-lg-5 {
+    margin-top: 1.5rem !important;
+  }
+}
+@media (max-width: 767.98px) {
+  .container[style*="max-width: 1000px"] {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .form-control-lg {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+  .p-4 {
+    padding: 1.25rem !important;
+  }
+  .mb-4 {
+    margin-bottom: 1.25rem !important;
+  }
+}
+@media (max-width: 575.98px) {
+  .container[style*="max-width: 1000px"] .p-4 {
+    padding: 0.75rem !important;
+  }
+  .container[style*="max-width: 1000px"] .mb-4 {
+    margin-bottom: 0.75rem !important;
+  }
+  .container[style*="max-width: 1000px"] .form-control-lg {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.75rem;
+  }
+  .container[style*="max-width: 1000px"] .p-4.mb-4 {
+    max-width: 100%;
+  }
+}
