@@ -1,5 +1,80 @@
 @import url("https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family= Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
+/* Move all inline styles from index.html to style.css */
+
+body {
+  font-family: "Nunito", sans-serif;
+}
+header {
+  background-color: #ff8400;
+  padding: 1.5rem 0 1rem 0;
+  text-align: center;
+}
+header h1 {
+  font-family: "Alegreya", serif;
+  color: #fff;
+  font-size: 2.5rem;
+  margin: 0;
+}
+header button {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+}
+.mb-4[style],
+.mb-4[min-width] {
+  max-width: 350px;
+  min-width: 200px;
+}
+.form-label[for="difficulty-select"] {
+  font-weight: 600;
+  font-family: "Nunito", sans-serif;
+}
+#difficulty-select {
+  font-family: "Nunito", sans-serif;
+}
+h5 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+.form-control.form-control-lg[readonly] {
+  background: #f8f9fa;
+  font-size: 1.2rem;
+  font-family: "Nunito", sans-serif;
+}
+.form-control.form-control-lg[placeholder] {
+  font-size: 1.1rem;
+  font-family: "Nunito", sans-serif;
+  height: 120px;
+  border-radius: 12px;
+}
+.d-flex.gap-3 button {
+  border: 2px solid #ff8400;
+  color: #111;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  min-width: 90px;
+}
+.p-4.mb-4 {
+  border: none;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 32px 0 #ff8400;
+  text-align: center;
+  margin-top: 2.5rem;
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.p-4.mb-4 h6 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.p-4.mb-4 div {
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+}
+
 /* Responsive styles for TypeRacer layout */
 @media (max-width: 991.98px) {
   .container[style*="max-width: 1000px"] .row.align-items-start {

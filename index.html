@@ -21,140 +21,49 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     <title>TypeRacer</title>
   </head>
-  <body style="font-family: 'Nunito', sans-serif">
-    <header
-      style="
-        background-color: #ff8400;
-        padding: 1.5rem 0 1rem 0;
-        text-align: center;
-      ">
-      <h1
-        style="
-          font-family: 'Alegreya', serif;
-          color: #fff;
-          font-size: 2.5rem;
-          margin: 0;
-        ">
-        TypeRacer
-      </h1>
-      <button
-        type="button"
-        class="btn btn-light mt-3"
-        style="font-family: 'Inter', sans-serif; font-weight: 600">
-        Instructions
-      </button>
+  <body>
+    <header>
+      <h1>TypeRacer</h1>
+      <button type="button" class="btn btn-light mt-3">Instructions</button>
     </header>
-
-    <div class="container" style="max-width: 1000px;">
+    <div class="container" style="max-width: 1000px">
       <div class="row align-items-start">
         <div class="col-lg-7 col-md-12 col-12">
-          <div class="mb-4" style="max-width: 350px; min-width: 200px;">
-            <label
-              for="difficulty-select"
-              class="form-label"
-              style="font-weight: 600; font-family: 'Nunito', sans-serif"
+          <div class="mb-4">
+            <label for="difficulty-select" class="form-label"
               >Set Difficulty</label
             >
-            <select
-              class="form-select"
-              id="difficulty-select"
-              style="font-family: 'Nunito', sans-serif">
+            <select class="form-select" id="difficulty-select">
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
             </select>
           </div>
-          <h5
-            class="mt-4 mb-3"
-            style="font-family: 'Nunito', sans-serif; font-weight: 600">
+          <h5 class="mt-4 mb-3">
             Test your typing speed by typing the text shown below:
           </h5>
           <div class="mb-3">
-            <input
-              type="text"
+            <textarea
               class="form-control form-control-lg"
-              value="The cat sat on the mat"
               readonly
-              style="
-                background: #f8f9fa;
-                font-size: 1.2rem;
-                font-family: 'Nunito', sans-serif;
-              " />
+              rows="3"></textarea>
           </div>
           <div class="mb-4">
-            <input
+            <textarea
               type="text"
               class="form-control form-control-lg"
-              placeholder="Click the start button to begin the test"
-              style="
-                font-size: 1.1rem;
-                font-family: 'Nunito', sans-serif;
-                height: 120px;
-                border-radius: 12px;
-              " />
+              placeholder="Click the start button to begin the test" /></textarea>
           </div>
           <div class="d-flex gap-3 justify-content-center mb-4 flex-wrap">
-            <button
-              type="button"
-              class="btn"
-              style="
-                border: 2px solid #ff8400;
-                color: #111;
-                font-weight: 600;
-                font-family: 'Inter', sans-serif;
-                min-width: 90px;
-              ">
-              Start
-            </button>
-            <button
-              type="button"
-              class="btn"
-              style="
-                border: 2px solid #ff8400;
-                color: #111;
-                font-weight: 600;
-                font-family: 'Inter', sans-serif;
-                min-width: 90px;
-              ">
-              Stop
-            </button>
-            <button
-              type="button"
-              class="btn"
-              style="
-                border: 2px solid #ff8400;
-                color: #111;
-                font-weight: 600;
-                font-family: 'Inter', sans-serif;
-                min-width: 90px;
-              ">
-              Retry
-            </button>
+            <button type="button" class="btn">Start</button>
+            <button type="button" class="btn">Stop</button>
+            <button type="button" class="btn">Retry</button>
           </div>
         </div>
         <div class="col-lg-5 col-md-12 col-12">
-          <div
-            class="p-4 mb-4"
-            style="
-              border: none;
-              border-radius: 12px;
-              background: #fff;
-              box-shadow: 0 4px 32px 0 #ff8400;
-              text-align: center;
-              margin-top: 2.5rem;
-              max-width: 350px;
-              margin-left: auto;
-              margin-right: auto;
-            ">
-            <h6
-              style="
-                font-family: 'Nunito', sans-serif;
-                font-weight: 700;
-                margin-bottom: 1rem;
-              ">
-              Results
-            </h6>
-            <div style="font-family: 'Nunito', sans-serif; font-size: 1rem">
+          <div class="p-4 mb-4">
+            <h6>Results</h6>
+            <div>
               <div>Level: easy</div>
               <div>Time: 0s</div>
               <div>WPM: 0</div>
@@ -163,7 +72,6 @@
         </div>
       </div>
     </div>
-
     <script
       src="https://kit.fontawesome.com/a3ffa70fd5.js"
       crossorigin="anonymous"></script>
@@ -171,90 +79,6 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
       crossorigin="anonymous"></script>
-    <script>
-      // Typing test logic
-      const referenceText = "The cat sat on the mat";
-      const inputBox = document.querySelector('.form-control.form-control-lg[placeholder]');
-      const buttons = document.querySelectorAll('.d-flex button');
-      const [startBtn, stopBtn, retryBtn] = buttons;
-      const wpmDisplay = document.querySelector('.p-4.mb-4 div div:last-child');
-      const timeDisplay = document.querySelector('.p-4.mb-4 div div:nth-child(2)');
-
-      let startTime = null;
-      let timerInterval = null;
-      let elapsed = 0;
-      let testActive = false;
-
-      function calculateWPM(text, seconds) {
-        if (!seconds) return 0;
-        const words = text.trim().split(/\s+/).length;
-        return Math.round((words / (seconds / 60)));
-      }
-
-      function getCorrectWordsCount(input, reference) {
-        const inputWords = input.trim().split(/\s+/);
-        const refWords = reference.trim().split(/\s+/);
-        let correct = 0;
-        for (let i = 0; i < inputWords.length; i++) {
-          if (inputWords[i] === refWords[i]) correct++;
-          else break;
-        }
-        return correct;
-      }
-
-      function refWordsSlice(count) {
-        return referenceText.split(/\s+/).slice(0, count).join(' ');
-      }
-
-      function updateWPM() {
-        if (!testActive) return;
-        const userInput = inputBox.value;
-        const correctWords = getCorrectWordsCount(userInput, referenceText);
-        const wpm = calculateWPM(refWordsSlice(correctWords), elapsed);
-        wpmDisplay.textContent = `WPM: ${wpm}`;
-      }
-
-      function updateTime() {
-        elapsed = Math.floor((Date.now() - startTime) / 1000);
-        timeDisplay.textContent = `Time: ${elapsed}s`;
-        updateWPM();
-      }
-
-      function startTest() {
-        inputBox.value = '';
-        inputBox.disabled = false;
-        inputBox.focus();
-        startTime = Date.now();
-        elapsed = 0;
-        timeDisplay.textContent = 'Time: 0s';
-        wpmDisplay.textContent = 'WPM: 0';
-        testActive = true;
-        timerInterval = setInterval(updateTime, 1000);
-      }
-
-      function stopTest() {
-        clearInterval(timerInterval);
-        updateWPM();
-        inputBox.disabled = true;
-        testActive = false;
-      }
-
-      function retryTest() {
-        stopTest();
-        inputBox.value = '';
-        inputBox.disabled = false;
-        timeDisplay.textContent = 'Time: 0s';
-        wpmDisplay.textContent = 'WPM: 0';
-        elapsed = 0;
-        testActive = false;
-      }
-
-      startBtn.addEventListener('click', () => {
-        if (!testActive) startTest();
-      });
-      stopBtn.addEventListener('click', stopTest);
-      retryBtn.addEventListener('click', retryTest);
-      inputBox.addEventListener('input', updateWPM);
-    </script>
+    <script src="assets/js/script.js"></script>
   </body>
 </html>
