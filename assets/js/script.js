@@ -196,6 +196,14 @@ stopBtn.addEventListener("click", stopTest);
 retryBtn.addEventListener("click", retryTest);
 inputBox.addEventListener("input", updateWPM);
 
+// Prevent newlines on Enter, stop test instead
+inputBox.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    e.preventDefault(); // Prevent newlines in textarea
+    stopTest();
+  }
+});
+
 // On page load, ensure the box fits the default text and easy message is shown
 window.addEventListener("DOMContentLoaded", () => {
   difficultySelect.value = "easy";
