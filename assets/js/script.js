@@ -76,13 +76,27 @@ function startTest() {
   inputBox.value = "";
   inputBox.disabled = false;
   inputBox.focus();
-  startTime = Date.now();
   elapsed = 0;
   timeDisplay.textContent = "Time: 0s";
   wpmDisplay.textContent = "WPM: 0";
   testActive = true;
-  timerInterval = setInterval(updateTime, 1000);
+  // Do NOT start timer here. Timer will start on first input.
+  timerInterval = null;
 }
+
+// Start timer on first input
+function startTimerIfNeeded() {
+  if (testActive && !timerInterval) {
+    startTime = Date.now();
+    timerInterval = setInterval(updateTime, 1000);
+  }
+}
+
+inputBox.addEventListener("input", function (e) {
+  startTimerIfNeeded();
+  updateHighlight();
+  updateWPM();
+});
 
 function stopTest() {
   clearInterval(timerInterval);
@@ -123,13 +137,16 @@ function setReferenceText() {
 
 // --- Real-time Highlighting for Typing Accuracy ---
 // Create a div for live highlighting above the input box (only once)
-let highlightDiv = document.getElementById('highlighted-text-div');
+let highlightDiv = document.getElementById("highlighted-text-div");
 if (!highlightDiv) {
-  highlightDiv = document.createElement('div');
-  highlightDiv.id = 'highlighted-text-div';
-  highlightDiv.className = 'highlighted-text mb-2';
+  highlightDiv = document.createElement("div");
+  highlightDiv.id = "highlighted-text-div";
+  highlightDiv.className = "highlighted-text mb-2";
   // Insert above the input box
-  inputBox.parentNode.parentNode.insertBefore(highlightDiv, inputBox.parentNode);
+  inputBox.parentNode.parentNode.insertBefore(
+    highlightDiv,
+    inputBox.parentNode
+  );
 }
 
 function updateHighlight() {
@@ -137,9 +154,9 @@ function updateHighlight() {
   const userInput = inputBox.value;
   const refWords = referenceText.split(/\s+/);
   const inputWords = userInput.split(/\s+/);
-  let highlighted = '';
+  let highlighted = "";
   for (let i = 0; i < refWords.length; i++) {
-    if (inputWords[i] === undefined || inputWords[i] === '') {
+    if (inputWords[i] === undefined || inputWords[i] === "") {
       highlighted += `<span>${refWords[i]}</span> `;
     } else if (inputWords[i] === refWords[i]) {
       highlighted += `<span class='correct-word'>${refWords[i]}</span> `;
@@ -150,23 +167,23 @@ function updateHighlight() {
   highlightDiv.innerHTML = highlighted.trim();
 }
 
-inputBox.addEventListener('input', updateHighlight);
+inputBox.addEventListener("input", updateHighlight);
 
 function resetHighlight() {
   const referenceText = referenceInput.value;
   const refWords = referenceText.split(/\s+/);
-  let highlighted = refWords.map(w => `<span>${w}</span>`).join(' ');
+  let highlighted = refWords.map((w) => `<span>${w}</span>`).join(" ");
   highlightDiv.innerHTML = highlighted;
 }
 
 // Patch setReferenceText and retryTest to also reset highlight
 const originalSetReferenceText = setReferenceText;
-setReferenceText = function() {
+setReferenceText = function () {
   originalSetReferenceText.apply(this, arguments);
   resetHighlight();
 };
 const originalRetryTest = retryTest;
-retryTest = function() {
+retryTest = function () {
   originalRetryTest.apply(this, arguments);
   resetHighlight();
 };
